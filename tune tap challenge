@@ -1,0 +1,97 @@
+import pygame
+pygame.init()
+
+
+
+screen=pygame.display.set_mode((850,800))
+pygame.display.set_caption("Tune Tap Challenge")
+
+r1=pygame.draw.rect(screen, "red", (50, 50, 100,700))
+r2=pygame.draw.rect(screen, "orange", (160,50,100,600))
+r3=pygame.draw.rect(screen,"yellow", (270,50,100,500))
+r4=pygame.draw.rect(screen,"green",(380,50,100,400))
+r5=pygame.draw.rect(screen, "blue", (490,50,100,300))
+r6=pygame.draw.rect(screen,"purple", (600,50,100,200))
+r7=pygame.draw.rect(screen,"pink",(710,50,100,100))
+
+sqx=350
+sqy=350
+
+square_dx=0
+square_dy=0
+
+sound1=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/noteD.mp3")
+sound2=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/noteE.mp3")
+sound3=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/note1.mp3")
+sound4=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/note3.mp3")
+sound5=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/note2.mp3")
+sound6=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/noteB.mp3")
+sound7=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/noteC.mp3")
+
+FPS=20
+clock=pygame.time.Clock()
+
+square=pygame.draw.rect(screen, "white", (sqx, sqy, 50, 50))
+
+gameloop=True
+while gameloop:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            gameloop=False
+
+    if event.type==pygame.KEYDOWN:
+        if event.key==pygame.K_UP:
+            square_dx=0
+            square_dy=-10
+
+        elif event.key==pygame.K_DOWN:
+            square_dx=0
+            square_dy=10
+
+        elif event.key==pygame.K_LEFT:
+            square_dx=-10
+            square_dy=0
+
+        elif event.key==pygame.K_RIGHT:
+            square_dx=10
+            square_dy=0
+
+        sqx=sqx+square_dx
+        sqy=sqy+square_dy
+
+    if square.colliderect(r1):
+        sound1.play()
+
+    if square.colliderect(r2):
+        sound2.play()
+
+    if square.colliderect(r3):
+        sound3.play()
+
+    if square.colliderect(r4):
+        sound4.play()
+
+    if square.colliderect(r5):
+        sound5.play()
+
+    if square.colliderect(r6):
+        sound6.play()
+
+    if square.colliderect(r7):
+        sound7.play()
+
+    screen.fill("black")
+    r1=pygame.draw.rect(screen, "red", (50, 50, 100,700))
+    r2=pygame.draw.rect(screen, "orange", (160,50,100,600))
+    r3=pygame.draw.rect(screen,"yellow", (270,50,100,500))
+    r4=pygame.draw.rect(screen,"green",(380,50,100,400))
+    r5=pygame.draw.rect(screen, "blue", (490,50,100,300))
+    r6=pygame.draw.rect(screen,"purple", (600,50,100,200))
+    r7=pygame.draw.rect(screen,"pink",(710,50,100,100))
+
+    square=pygame.draw.rect(screen, "white", (sqx, sqy, 50, 50))
+
+    pygame.display.flip()
+    clock.tick(FPS)
+
+pygame.quit()
