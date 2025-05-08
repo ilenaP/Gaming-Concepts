@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Paddle:
     def __init__(self):
@@ -38,7 +39,22 @@ class Ball (pygame.sprite.Sprite):
 
     def draw(self, screen):
         pygame.draw.rect(screen, "blue", self.rect)
+
+
+class Bricks (pygame.sprite.Sprite):
+    def __init__(self, x, y, bricks_group):
+        super().__init__()
+        bricks=["/Users/durgaparajuli/Desktop/gaming concepts/brickgame/pastel-yellow-color-solid-background-1920x1080.png", "/Users/durgaparajuli/Desktop/gaming concepts/brickgame/blue.png", "/Users/durgaparajuli/Desktop/gaming concepts/brickgame/pink.jpg", "/Users/durgaparajuli/Desktop/gaming concepts/brickgame/purple.png" ]
+        self.image=pygame.image.load(bricks[random.randint(0,3)])
+        self.image=pygame.transform.scale(self.image, (80, 20))
+        self.rect=self.image.get_rect()
+        self.rect.topleft=(x,y)
+        self.bricks_group=bricks_group
+
+    #def draw (self, screen):
         
+
+
 
 
     
