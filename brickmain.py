@@ -12,6 +12,8 @@ gs=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Brick Smash")
 
 bricks_group=pygame.sprite.Group()
+paddle_group=pygame.sprite.Group()
+ball_group=pygame.sprite.Group()
 
 num_rows=7
 num_cols=7
@@ -28,8 +30,10 @@ for row in range(num_rows):
         bricks_group.add(brick)
 
 
-paddle=Paddle()
-ball=Ball()
+paddle=Paddle(paddle_group)
+ball=Ball(ball_group)
+
+f=pygame.font.Font(None, 36)
 
 FPS=20
 clock=pygame.time.Clock()
@@ -48,6 +52,20 @@ while gameloop:
 
     bricks_group.update()
     bricks_group.draw(gs)
+
+    scoretext=f.render("Score = " +str(ball.score), True, "white")
+    scorerect=scoretext.get_rect(centerx=WIDTH//2, top=15)
+    gs.blit(scoretext, scorerect)
+
+    pygame.draw.line(gs,  "white", (0,45), (WIDTH,45), 2)
+    pygame.draw.line(gs, "white", (0,525), (WIDTH, 525), 2)
+
+    if pygame.sprite.spritecollide(ball, bricks_group, True):
+        ball.speed_y *= -1
+        ball.score=ball.score + 10
+
+    if ball.rect.colliderect(paddle.rect):
+        ball.speed_y *= -1
 
     pygame.display.flip()
     clock.tick(FPS)
