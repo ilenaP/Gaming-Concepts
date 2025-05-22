@@ -4,7 +4,7 @@ import random
 class Paddle (pygame.sprite.Sprite):
     def __init__(self, paddle_group):
         self.rect=pygame.Rect(700, 550, 90, 25)
-        self.velocity=15
+        self.velocity=20
         self.paddle_group=paddle_group
     
     def move(self, event):

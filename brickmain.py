@@ -39,6 +39,9 @@ FPS=20
 clock=pygame.time.Clock()
 
 gameloop=True
+gamewin=False
+gamelose=False
+
 while gameloop:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -60,12 +63,44 @@ while gameloop:
     pygame.draw.line(gs,  "white", (0,45), (WIDTH,45), 2)
     pygame.draw.line(gs, "white", (0,525), (WIDTH, 525), 2)
 
+    hitsound=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/brickgame/hit.mp3")
+
     if pygame.sprite.spritecollide(ball, bricks_group, True):
         ball.speed_y *= -1
         ball.score=ball.score + 10
+        hitsound.play()
 
     if ball.rect.colliderect(paddle.rect):
         ball.speed_y *= -1
+        hitsound.play()
+
+    if ball.rect.bottom >= HEIGHT:
+        go=f.render("You Lost! Game Over!", True, "white")
+        gr=go.get_rect(center=(WIDTH//2, HEIGHT//2))
+        brick_losesound=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/brickgame/game_over.mp3")
+        brick_losesound.play()
+        gamelose=True
+
+    if len (bricks_group) ==0:
+        gw=f.render("You hit all the bricks! You win!", True, "white")
+        gwt=gw.get_rect(center=(WIDTH//2, HEIGHT//2))
+        game_winsound=pygame.mixer.Sound("/Users/durgaparajuli/Desktop/gaming concepts/brickgame/game_win.mp3")
+        game_winsound.play()
+        gamewin=True   
+
+    if gamelose==True:
+        gs.fill("black")
+        gs.blit(go, gr)
+        pygame.display.update()
+        pygame.time.delay(2000)
+        gameloop=False
+
+    if gamewin==True:
+        gs.fill("black")
+        gs.blit(gw, gwt)
+        pygame.display.update()
+        pygame.time.delay(2000)
+        gameloop=False
 
     pygame.display.flip()
     clock.tick(FPS)
